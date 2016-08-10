@@ -4,7 +4,7 @@ var methodOverride = require('method-override');
 var myConnection = require('./config/connection.js');
 
 var app = express();
-app.use(express.static(__dirname + '/public'));
+app.use('/static',express.static('public/assets'));
 var port = 3000;
 
 app.use(bodyParser.json());
@@ -14,34 +14,22 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view enigine', 'handlebars');
+app.set('view engine', 'handlebars');
+var ORM = require('./config/orm');
 
 
 
 //Serve static content for the app from the "public" directory in the application directory.
 
 
-
-
-app.get('/', function(req,res){
-	connection.query('SELECT * FROM burgers;', function(err, data){
-		if (err) throw err;
-		res.render('index', {events: data});
-	});
-})
-
-app.post('/create', function(req, res){
-	connection.query('INSERT INTO burgers (burger_name) VALUES (?)', [req.body.burger_name], function(err,result){
-		if (err) throw err;
-		res.redirect('/');
-
-	});
+app.get('/', function(req, res){
+	myConnection.query('SELECT * FROM burgers', function(err, data){
+		if(err) throw error
+			res.render('index', {
+				burgers:data
+		})
+	})
 });
-
-
-
-
-
 
 
 
