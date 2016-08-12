@@ -33,7 +33,7 @@ var ORM = {
         // insert it
         connection.query('INSERT INTO burgers SET ?', newBurg, function(err, db_response) {
             // check results
-            console.log('you created a new burger named', bName);
+            console.log('you created a new burger named', db_response);
         });
     },
     // change a value on a burger (devoured)
@@ -45,6 +45,9 @@ var ORM = {
         var updatedVals = [true, burger_id];
         // connection.query('UPDATE burgers SET devoured = true WHERE ID = ?')
         connection.query('UPDATE burgers SET devoured = ?  WHERE id = ?', updatedVals, function(err, db_response) {
+            if(err) {
+                throw err;
+            }
             console.log("updated query response", db_response);
         });
     }
