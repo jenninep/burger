@@ -40,6 +40,14 @@
 						<li>
 							<p id="p2">
 								{{this.id}}. {{this.burger_name}}
+									<form id="devouredBurgers" action="/delete?_method=DELETE" method="POST">
+									<div class="input-group">
+										<input type="hidden" class="form-control" name="id" value="{{this.id}}">
+										<span class="input-group-btn">
+											<button class="btn btn-default" type="submit" id="submitBurger">Im Stuffed!</button>
+										</span>
+									</div>
+								</form>
 							</p>		
 						</li>
 					{{/if}}

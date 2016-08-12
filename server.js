@@ -55,7 +55,13 @@ app.put('/update', function(req,res){
 	});
 });
 
+app.delete('/delete', function(req,res){
+	myConnection.query('DELETE FROM burgers WHERE ?', [{devoured:true}, {id:req.body.id}], function(err, response){
+		if(err)throw err;
+		res.redirect('/');
 
+	});
+});
 
 
 app.listen(port, function(){
